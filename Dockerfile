@@ -1,40 +1,17 @@
-# Build stage
+# Build
 FROM node:20-alpine AS builder
-
 WORKDIR /app
-
-# Copy package files
 COPY package*.json ./
-
-# Install all dependencies (including devDependencies for build)
 RUN npm ci
-
-# Copy source code
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Production stage
-FROM node:20-alpine AS production
+# Serve (Nginx)
+FROM nginx:alpine
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-WORKDIR /app
+# Nginx escutando na 5000
+RUN printf "server { listen 5000; server_name _; root /usr/share/nginx/html; index index.html; location / { try_files \\$uri \\$uri/ /index.html; } }\n" > /etc/nginx/conf.d/default.conf
 
-# Copy package files
-COPY package*.json ./
-
-# Install only production dependencies
-RUN npm ci --only=production
-
-# Copy built files from builder stage
-COPY --from=builder /app/dist ./dist
-
-# Expose port 5000 (the app binds to this port)
 EXPOSE 5000
-
-# Set environment variables
-ENV NODE_ENV=production
-ENV PORT=5000
-
-# Start the application
-CMD ["node", "dist/index.cjs"]
+CMD ["nginx", "-g", "daemon off;"]
