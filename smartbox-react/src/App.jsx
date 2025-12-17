@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const bgUrl = (url) => ({ backgroundImage: `url("${url}")` });
 
@@ -7,6 +7,30 @@ const WHATSAPP_MESSAGE = "Olá! Gostaria de saber mais sobre os serviços da Sma
 const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 export default function App() {
+  const [formData, setFormData] = useState({
+    nome: "",
+    tipoItens: "Móveis Residenciais",
+    telefone: ""
+  });
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    const message = `Olá! Gostaria de solicitar uma cotação.
+
+*Nome:* ${formData.nome || "Não informado"}
+*Tipo de Itens:* ${formData.tipoItens}
+*Telefone:* ${formData.telefone || "Não informado"}
+
+Aguardo retorno!`;
+    
+    const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, "_blank");
+  };
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
       <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-[#f5f5f0] px-4 sm:px-10 py-4 transition-all duration-300">
@@ -302,21 +326,54 @@ export default function App() {
             </div>
 
             <div className="md:w-1/2 bg-white dark:bg-[#1f1e16] p-10 md:p-14">
-              <div className="flex flex-col gap-5">
-                <p className="text-gray-600 dark:text-gray-300 text-center">
-                  Clique abaixo para falar diretamente com nossa equipe pelo WhatsApp e receba seu orçamento personalizado!
-                </p>
+              <form className="flex flex-col gap-5" onSubmit={handleFormSubmit}>
+                <div>
+                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">Seu Nome</label>
+                  <input
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                    placeholder="Ex: João Silva"
+                    type="text"
+                    name="nome"
+                    value={formData.nome}
+                    onChange={handleFormChange}
+                  />
+                </div>
 
-                <a
-                  href={WHATSAPP_LINK}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <div>
+                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">Tipo de Itens</label>
+                  <select 
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                    name="tipoItens"
+                    value={formData.tipoItens}
+                    onChange={handleFormChange}
+                  >
+                    <option>Móveis Residenciais</option>
+                    <option>Documentos / Arquivos</option>
+                    <option>Estoque Comercial</option>
+                    <option>Outros</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">WhatsApp / Telefone</label>
+                  <input
+                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
+                    placeholder="(11) 99999-9999"
+                    type="tel"
+                    name="telefone"
+                    value={formData.telefone}
+                    onChange={handleFormChange}
+                  />
+                </div>
+
+                <button
                   className="mt-2 w-full py-4 rounded-full bg-primary hover:bg-[#ebe700] text-[#181811] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
+                  type="submit"
                 >
                   <span className="material-symbols-outlined">chat</span>
-                  Solicitar Cotação pelo WhatsApp
-                </a>
-              </div>
+                  Enviar pelo WhatsApp
+                </button>
+              </form>
             </div>
           </div>
         </div>
