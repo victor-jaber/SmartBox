@@ -2,6 +2,10 @@ import React from "react";
 
 const bgUrl = (url) => ({ backgroundImage: `url("${url}")` });
 
+const WHATSAPP_NUMBER = "5511999999999";
+const WHATSAPP_MESSAGE = "Olá! Gostaria de saber mais sobre os serviços da SmartBox.";
+const WHATSAPP_LINK = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
+
 export default function App() {
   return (
     <div className="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
@@ -22,9 +26,9 @@ export default function App() {
           </nav>
 
           <div className="flex items-center gap-4">
-            <button className="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-[#181811] text-sm font-bold shadow-sm hover:shadow-md transition-shadow">
+            <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="hidden sm:flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary text-[#181811] text-sm font-bold shadow-sm hover:shadow-md transition-shadow">
               <span className="truncate">Cotar Agora</span>
-            </button>
+            </a>
             <button className="md:hidden p-2 text-[#181811]" type="button" aria-label="Abrir menu">
               <span className="material-symbols-outlined">menu</span>
             </button>
@@ -56,13 +60,13 @@ export default function App() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <button className="flex items-center justify-center rounded-full h-14 px-8 bg-primary hover:bg-[#ebe700] text-[#181811] text-base font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-1" type="button">
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-full h-14 px-8 bg-primary hover:bg-[#ebe700] text-[#181811] text-base font-bold shadow-lg shadow-primary/30 transition-all hover:-translate-y-1">
                 <span className="material-symbols-outlined mr-2">chat</span>
                 Orçar no WhatsApp
-              </button>
-              <button className="flex items-center justify-center rounded-full h-14 px-8 bg-white border border-gray-200 text-[#181811] text-base font-bold hover:bg-gray-50 transition-colors" type="button">
+              </a>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center rounded-full h-14 px-8 bg-white border border-gray-200 text-[#181811] text-base font-bold hover:bg-gray-50 transition-colors">
                 Entenda os Planos
-              </button>
+              </a>
             </div>
 
             <div className="flex items-center gap-4 mt-4 text-sm font-medium text-gray-500">
@@ -214,9 +218,10 @@ export default function App() {
                   </div>
                 </div>
 
-                <button className="w-full py-4 rounded-xl bg-primary text-[#181811] font-bold hover:bg-[#ebe700] transition-colors" type="button">
-                  Calcular meu Espaço
-                </button>
+                <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="w-full py-4 rounded-xl bg-primary text-[#181811] font-bold hover:bg-[#ebe700] transition-colors flex items-center justify-center gap-2">
+                  <span className="material-symbols-outlined">chat</span>
+                  Falar com Especialista
+                </a>
               </div>
             </div>
           </div>
@@ -297,42 +302,21 @@ export default function App() {
             </div>
 
             <div className="md:w-1/2 bg-white dark:bg-[#1f1e16] p-10 md:p-14">
-              <form className="flex flex-col gap-5">
-                <div>
-                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">Seu Nome</label>
-                  <input
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                    placeholder="Ex: João Silva"
-                    type="text"
-                  />
-                </div>
+              <div className="flex flex-col gap-5">
+                <p className="text-gray-600 dark:text-gray-300 text-center">
+                  Clique abaixo para falar diretamente com nossa equipe pelo WhatsApp e receba seu orçamento personalizado!
+                </p>
 
-                <div>
-                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">Tipo de Itens</label>
-                  <select className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all">
-                    <option>Móveis Residenciais</option>
-                    <option>Documentos / Arquivos</option>
-                    <option>Estoque Comercial</option>
-                    <option>Outros</option>
-                  </select>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-bold text-[#181811] dark:text-white mb-2">WhatsApp / Telefone</label>
-                  <input
-                    className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition-all"
-                    placeholder="(11) 99999-9999"
-                    type="tel"
-                  />
-                </div>
-
-                <button
-                  className="mt-2 w-full py-4 rounded-full bg-primary hover:bg-[#ebe700] text-[#181811] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1"
-                  type="button"
+                <a
+                  href={WHATSAPP_LINK}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-2 w-full py-4 rounded-full bg-primary hover:bg-[#ebe700] text-[#181811] font-bold text-lg shadow-lg hover:shadow-xl transition-all hover:-translate-y-1 flex items-center justify-center gap-2"
                 >
-                  Solicitar Cotação Grátis
-                </button>
-              </form>
+                  <span className="material-symbols-outlined">chat</span>
+                  Solicitar Cotação pelo WhatsApp
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -461,7 +445,7 @@ export default function App() {
 
           <div className="mt-12 text-center">
             <p className="text-gray-500 mb-4">Ainda tem dúvidas?</p>
-            <a className="inline-flex items-center justify-center font-bold text-primary hover:text-[#ebe700] transition-colors border-b-2 border-primary hover:border-[#ebe700]" href="#contato">
+            <a className="inline-flex items-center justify-center font-bold text-primary hover:text-[#ebe700] transition-colors border-b-2 border-primary hover:border-[#ebe700]" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
               Falar com um especialista
             </a>
           </div>
@@ -518,10 +502,10 @@ export default function App() {
                 </div>
               </div>
 
-              <button className="flex items-center gap-2 text-[#181811] dark:text-white font-bold hover:text-primary transition-colors group" type="button">
-                <span>Ver todas as unidades</span>
+              <a href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-[#181811] dark:text-white font-bold hover:text-primary transition-colors group">
+                <span>Fale Conosco</span>
                 <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-              </button>
+              </a>
             </div>
 
             <div className="lg:w-2/3 w-full h-[500px] rounded-[2rem] overflow-hidden shadow-2xl relative border-4 border-white dark:border-[#2a2912]">
